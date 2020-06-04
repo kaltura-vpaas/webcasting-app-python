@@ -15,7 +15,7 @@ MarkupSafe==1.0
 mccabe==0.6.1
 prettytable==0.7.2
 pylint==2.5.0
-requests==2.18.4
+requests==2.20.0
 requests-toolbelt==0.8.0
 six==1.14.0
 toml==0.10.0
