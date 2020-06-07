@@ -13,3 +13,5 @@ requests==2.20.0
 six==1.15.0
 urllib3==1.24.2
 Werkzeug==0.15.3
+KalturaApiClient==16.0.0
+KalturaClient==1.0.0
