@@ -7,9 +7,10 @@ import json
 import config 
 from time import time 
 
-class Livestream: 
+class Livestream:
 
-    def create(): 
+    @staticmethod
+    def create():
 
         client  = ks.client_for_admin("avital", "privileges")
 
@@ -24,7 +25,6 @@ class Livestream:
         live_stream_entry.sourceType = KalturaSourceType.LIVE_STREAM
         live_stream_entry.adminTags = "vpaas-webcast"
         live_stream_entry.pushPublishEnabled = KalturaLivePublishStatus.DISABLED
-        live_stream_entry.recording_status = KalturaRecordingStatus.ACTIVE
         live_stream_entry.explicitLive = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordStatus = KalturaRecordStatus.PER_SESSION
 
@@ -79,7 +79,7 @@ class Livestream:
         '<PresenterTitle>CEO and Chairman</PresenterTitle><PresenterBio>Awesome biography here</PresenterBio>' \
         '<PresenterLink>https://www.linkedin.com/in/john.doe</PresenterLink>' \
         '<PresenterImage>https://speakerheadshot.com/image.png</PresenterImage></Presenter></metadata>' \
-        .format(int(webcast_start_date.timestamp()), int(webcast_end_date.timestamp()), presenter_name)
+        .format(int(webcast_start_date.strftime("%s")), int(webcast_end_date.strftime("%s")), presenter_name)
 
         object_type = KalturaMetadataObjectType.ENTRY
         result = client.metadata.metadata.add(events_metadata_profile_id, object_type, live_stream_entry, xml_data)

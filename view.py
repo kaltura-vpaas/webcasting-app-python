@@ -3,11 +3,12 @@ from KalturaClient.Plugins.Core import *
 import ks
 import config
 
-class View: 
+class View:
 
+    @staticmethod
     def playback_for(user_id, entry_id, user_role):
 
-        client  = ks.client_for_admin("avital", "")
+        client  = ks.client_for_admin(user_id, "")
 
         livestream = client.liveStream.get(entry_id)
 
