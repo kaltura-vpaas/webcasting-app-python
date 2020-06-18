@@ -9,8 +9,7 @@
     <title>View Livestream</title>
   </head>
   <body>
-    <script type="text/javascript" src="https://cdnapisec.kaltura.com/p/{{partner_id}}/sp/{{partner_id}}00/embedIframeJs/uiconf_id/{{uiconf_id}}/partner_id/{{partner_id}}"></script>
-
+    <script type="text/javascript" src="https://cdnapisec.kaltura.com/p/{{partner_id}}/embedPlaykitJs/uiconf_id/{{uiconf_id}}"></script>
 
     <div class="container text-center">
         <div class="content">
@@ -24,42 +23,35 @@
     </div>
 
     <script>
-        kWidget.embed({
-            'targetId': 'kaltura_player',
-            'wid': '_{{partner_id}}',
-            'uiconf_id': '{{ uiconf_id }}',
-            'flashvars':
-                {
-                'ks': '{{ ks }}',
-				'applicationName': '{{ app_name }}',
-				'disableAlerts': 'false',
-				'externalInterfaceDisabled': 'false',
-				'autoPlay': 'true',
-                'autoMute': 'false',
-                'largePlayBtn.plugin': 'false',
-                'expandToggleBtn.plugin':'false',
-				'dualScreen': {'plugin': 'true'},
-				'chapters': {'plugin': 'true'},
-				'sideBarContainer': {'plugin': 'true'},
-				'LeadWithHLSOnFlash': 'true',
-				'EmbedPlayer.LiveCuepoints': 'true',
-				'EmbedPlayer.EnableIpadNativeFullscreen': 'true',
-				'qna': {
-					'plugin': 'true',
-					'moduleWidth': '200',
-					'containerPosition': 'right',
-					'qnaPollingInterval': '10000',
-					'onPage': 'false',
-					'userId': '{{ user_id }}',
-					'userRole': '{{ user_role }}',
-					'qnaTargetId': 'qnaListHolder'
-				},
-				'webcastPolls': {'plugin': 'true', 'userId': '{{ user_id }}', 'userRole': '{{ user_role }}'}
-			},
-		'entry_id': '{{ entry_id }}'
-	});
-    </script>
+        var kalturaPlayer = KalturaPlayer.setup({
+        targetId: "kaltura_player",
+        provider: {
+            partnerId: '{{ partner_id }}',
+            uiConfId: '{{ uiconf_id }}', 
+            ks: '{{ ks }}'
+        },
+        playback: {
+            preload: "auto",
+            autoplay: true
+        },
+        session: {
+            userId: '{{ user_id}} '
+        }, 
+        ui: {
+            debug: true
+        },
+        plugins: {
+            qna: {
+                dateFormat: "mmmm do, yyyy",
+                expandMode: "OverTheVideo",
+                expandOnFirstPlay: true,
+                userRole: 'unmoderatedAdminRole' 
+                }
+            } 
+        });
+        kalturaPlayer.loadMedia({entryId: '{{ entry_id }}'});
 
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

@@ -12,7 +12,7 @@ class Livestream:
     @staticmethod
     def create():
 
-        client  = ks.client_for_admin("avital", "privileges")
+        client  = ks.client_for_admin(config.admin_email, "")
 
         # CREATE LIVESTREAM ENTRY
 

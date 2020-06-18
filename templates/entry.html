@@ -19,7 +19,10 @@
                 <button id="launchProducerApp" onclick="launchKalturaWebcast()" class="btn btn-primary">Launch Studio</button>
             </div>
             <div class="action-button">
-                <button class="btn btn-success" onclick="window.location.href='{{ url_for('view_stream', username='avital', entry_id=entry_id, user_role='adminRole') }}'"; target="_blank">View Player</button>
+                <a href='{{ url_for ('moderator_view', entry_id=entry_id) }}' target="_blank" class="btn btn-secondary">Moderator View</a>
+            </div>
+            <div class="action-button">
+                <a href='{{ url_for('view_stream', entry_id=entry_id) }}' target="_blank" class="btn btn-success">View Player</a>
             </div>
 
             <div class="download">

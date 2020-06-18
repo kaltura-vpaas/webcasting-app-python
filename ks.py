@@ -48,3 +48,17 @@ def ks_for_user(username, privileges):
         privileges)
 
     return ks
+
+def ks_for_moderator(username, privileges):
+    kaltura_config = KalturaConfiguration(config.partner_id)
+    kaltura_config.serviceUrl = config.service_url
+    client = KalturaClient(kaltura_config)
+    ks = client.session.start(
+        config.admin_secret,
+        username,
+        KalturaSessionType.USER,
+        config.partner_id, 
+        86400,
+        privileges)
+
+    return ks
