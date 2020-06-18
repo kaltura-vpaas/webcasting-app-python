@@ -2,7 +2,7 @@
 
 This is a sample app written in python3 that demonstrates how to integrate the Kaltura Webcasting tool into your application. It includes event creation, working with metadata, launching the Kaltura Webcasting Studio, and most importantly, playing the webcast stream using the Kaltura Player. 
 
-The complete documentation can be found [here](https://github.com/kaltura-vpaas/webcasting-integration)
+The complete documentation can be found [here](https://github.com/kaltura-vpaas/webcasting-integration).
 
 ### Setting Up The Application 
 
@@ -22,9 +22,10 @@ The complete documentation can be found [here](https://github.com/kaltura-vpaas/
 - user_id (string) = the identifying string of the end user who will be watching the playback. This value will most likely will come from a different part of the application 
 - moderator_user (string) = the identifying string of the moderator who will be managing the Q&A flow. 
 
-- app_name = The name that appears on the Webcasting Studio App
-- app_id = Application ID used for analytics 
-- app_domain = Domain name of the application
+- app_name (string) = The name that appears on the Webcasting Studio App
+- app_id (string) = Application ID used for analytics 
+- app_domain (string) = Domain name of the application
+- 
 
 ### Running The Application
 
@@ -38,6 +39,7 @@ with
 
 ```from urllib import urlencode```
 
+
 ### About The Application 
 
 #### main.py 
@@ -50,8 +52,8 @@ A webcast instance is created using the configurations discussed in the guide an
 
 #### view.py 
 
-**playback()** takes the entry ID and checks if it is live. If not, the redirect and recorded entry IDs are checked. If those are also empty, the media API is called to look for any recordings that may have resulted from this session, assuming it is complete. If any of these exist, the entry ID is replaced. Otherwise, the entry ID remains the same. 
+`playback()` takes the entry ID and checks if it is live. If not, the redirect and recorded entry IDs are checked. If those are also empty, the media API is called to look for any recordings that may have resulted from this session, assuming it is complete. If any of these exist, the entry ID is replaced. Otherwise, the entry ID remains the same. 
 
 A user session is created and passed in the response, along with other values needed in order to embed the player with the live entry. 
 
-**moderator_view** takes the entry ID and creates a Kaltura Session that allows for moderation on the entry. The necessary parameters are encoded and added to the moderator view URL which is returned in the response. 
+`moderator_view()` takes the entry ID and creates a Kaltura Session that allows for moderation on the entry. The necessary parameters are encoded and added to the moderator view URL which is returned in the response. 
