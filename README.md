@@ -25,7 +25,6 @@ The complete documentation can be found [here](https://github.com/kaltura-vpaas/
 - app_name (string) = The name that appears on the Webcasting Studio App
 - app_id (string) = Application ID used for analytics 
 - app_domain (string) = Domain name of the application
-- 
 
 ### Running The Application
 
