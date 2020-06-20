@@ -1,12 +1,19 @@
-partner_id =
-admin_secret =
-admin_email =
-service_url =
-uiconf_id =
+partner_id = 0000000
+admin_secret = "xxxxx"
+admin_email = "xxxxx"
+service_url = "https://www.kaltura.com/"
 
-user_id =
-moderator_user =
+player_v2 = False
+uiconf_id = 00000000
+uiconf_idv2 = 00000000
 
-app_name =
-app_id =
-app_domain =
+
+user_id = "xxxxx"
+moderator_user = "xxxxx"
+
+app_name = "Webcasting Application"
+app_id = "myCustomWebcastApp"
+app_domain = "my.customwebcast.com"
+
+
+

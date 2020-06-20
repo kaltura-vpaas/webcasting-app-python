@@ -12,19 +12,20 @@ The complete documentation can be found [here](https://github.com/kaltura-vpaas/
 
 **You'll need to add credentials to the `config.py` file:**
 
-- partner_id (int): this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)
-- admin_secret (string): this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)
-- admin_email (string): the email address of the admin, most likely the account owner, used for object creation.
-- user_id (string): this is any identifying string, such as your name or email address 
-- service_url (string): "https://www.kaltura.com/" - can be changed for onprem 
-- uiconf_id: this is the ID of the player you'll be using for livestream playback. Can be found in the KMC [Studio](https://kmc.kaltura.com/index.php/kmcng/studio/v3)
+- **partner_id (int)**: this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)
+- **admin_secret (string)**: this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)
+- **admin_email (string)**: the email address of the admin, most likely the account owner, used for object creation
+- **service_url (string)**: "https://www.kaltura.com/" - can be changed for onprem 
+- **playerv2 (boolean)**: sets whether the application will use playerV2 for playback - in the scenario that presentation slides are required in the live stream
+- **uiconf_id (int)**: the ID of the v7 player you'll be using for livestream playback. Can be found in the KMC [**TV STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v3). (Can be left blank if using v2)
+- **uiconf_idv2 (int)**: the ID of the v2 player you'll be using for livestream playback. Can be found in the KMC [**Universal STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v2). (Can be left blank if using v3)
 
-- user_id (string) = the identifying string of the end user who will be watching the playback. This value will most likely will come from a different part of the application 
-- moderator_user (string) = the identifying string of the moderator who will be managing the Q&A flow. 
+- **user_id (string)** = the identifying string of the end user who will be watching the playback. This value will most likely will come from a different part of the application 
+- **moderator_user (string)** = the identifying string of the moderator who will be managing the Q&A flow
 
-- app_name (string) = The name that appears on the Webcasting Studio App
-- app_id (string) = Application ID used for analytics 
-- app_domain (string) = Domain name of the application
+- **app_name (string)** = the name that appears on the Webcasting Studio App
+- **app_id (string)** = application ID used for analytics 
+- **app_domain (string)** = domain name of the application
 
 ### Running The Application
 

@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect
 from create import Livestream
 from view import View
 from flask import request
+import config 
 
 app = Flask(__name__)
 app.debug=True
@@ -17,8 +18,12 @@ def create_stream():
 
 @app.route("/view/<entry_id>", methods=['get'])
 def view_stream(entry_id): 
-    data = View.playback(entry_id)
-    return render_template("view.html", **data)
+    if (config.player_v2):
+        data = View.playback(entry_id, config.uiconf_idv2)
+        return render_template("view-v2.html", **data)
+    else: 
+        data = View.playback(entry_id, config.uiconf_id)
+        return render_template("view.html", **data)
 
 @app.route("/moderator/<entry_id>", methods=['get'])
 def moderator_view(entry_id): 

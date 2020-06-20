@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 class View:
 
     @staticmethod
-    def playback(entry_id):
+    def playback(entry_id, uiconf_id):
 
         client  = ks.client_for_admin(config.admin_email, "")
 
@@ -39,9 +39,10 @@ class View:
         data = {
             "ks": kaltura_session, 
             "partner_id": config.partner_id,
-            "uiconf_id": config.uiconf_id,
+            "uiconf_id": uiconf_id,
             "user_id": config.user_id, 
-            "entry_id": entry_id
+            "entry_id": entry_id,
+            "app_name": config.app_name, #for player v2
         }
 
         return data
