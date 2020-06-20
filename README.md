@@ -16,7 +16,7 @@ The complete documentation can be found [here](https://github.com/kaltura-vpaas/
 - **admin_secret (string)**: this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)
 - **admin_email (string)**: the email address of the admin, most likely the account owner, used for object creation
 - **service_url (string)**: "https://www.kaltura.com/" - can be changed for onprem 
-- **playerv2 (boolean)**: sets whether the application will use playerV2 for playback - in the scenario that presentation slides are required in the live stream
+- **player_v2 (boolean)**: sets whether the application will use playerV2 for playback - in the scenario that presentation slides are required in the live stream
 - **uiconf_id (int)**: the ID of the v7 player you'll be using for livestream playback. Can be found in the KMC [**TV STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v3). (Can be left blank if using v2)
 - **uiconf_idv2 (int)**: the ID of the v2 player you'll be using for livestream playback. Can be found in the KMC [**Universal STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v2). (Can be left blank if using v3)
 
