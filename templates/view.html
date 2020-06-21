@@ -41,11 +41,15 @@
             debug: true
         },
         plugins: {
-            qna: {
+            "qna": {
                 dateFormat: "mmmm do, yyyy",
                 expandMode: "OverTheVideo",
                 expandOnFirstPlay: true,
                 userRole: 'unmoderatedAdminRole' 
+                },
+            "kaltura-live": {
+                checkLiveWithKs: false,
+                isLiveInterval: 10
                 }
             } 
         });
