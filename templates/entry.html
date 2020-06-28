@@ -45,18 +45,15 @@
         //Handle Click on Launch button
      
         function launchKalturaWebcast() {
-            var kapp = new KAppLauncher();
+            const kapp = new KAppLauncher();
     
-            var params = JSON.parse('{{ launch_params | tojson | safe}}');
+            const params = JSON.parse('{{ launch_params | tojson | safe}}');
             
             kapp.startApp(params, function(isSupported, failReason) {
                 if (!isSupported && failReason !== 'browserNotAware') {
                     alert(res + " " + reason);
                 } else {
                     console.log("true")
-                    // var playerLink = document.getElementById("launchPlayer");
-                    // playerLink.href = "<?php echo $playbackPageUrl; ?>";
-                    // playerLink.style.display = "inline";
                 }
             }, 3000, true);
         }
