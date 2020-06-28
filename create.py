@@ -27,7 +27,7 @@ class Livestream:
         live_stream_entry.pushPublishEnabled = KalturaLivePublishStatus.DISABLED
         live_stream_entry.explicitLive = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordStatus = KalturaRecordStatus.PER_SESSION
-
+        live_stream_entry.conversionProfileId = 0000000
         live_stream_entry.recordingOptions = KalturaLiveEntryRecordingOptions()
         live_stream_entry.recordingOptions.shouldCopyEntitlement = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldMakeHidden = KalturaNullableBoolean.TRUE_VALUE
@@ -106,7 +106,7 @@ class Livestream:
         privileges = "setrole:WEBCAST_PRODUCER_DEVICE_ROLE,sview:*,list:{},download:{}" \
             .format(live_stream_entry, live_stream_entry)
 
-        kaltura_session = ks.ks_for_user(config.user_id, privileges)
+        kaltura_session = ks.ks_for_user(config.moderator_user, privileges)
 
         ## conversion profile ID
 
@@ -138,7 +138,7 @@ class Livestream:
             "logoUrl": "https://picsum.photos/200",
             "fromDate": webcast_start_date,
             "toDate": webcast_end_date,
-            "userId": config.user_id,
+            "userId": config.moderator_user,
             "QnAEnabled": True,
             "pollsEnabled": True,
             "userRole": "adminRole", 
