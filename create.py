@@ -27,7 +27,7 @@ class Livestream:
         live_stream_entry.pushPublishEnabled = KalturaLivePublishStatus.DISABLED
         live_stream_entry.explicitLive = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordStatus = KalturaRecordStatus.PER_SESSION
-        live_stream_entry.conversionProfileId = 0000000
+        live_stream_entry.conversionProfileId = 0000000git
         live_stream_entry.recordingOptions = KalturaLiveEntryRecordingOptions()
         live_stream_entry.recordingOptions.shouldCopyEntitlement = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldMakeHidden = KalturaNullableBoolean.TRUE_VALUE
@@ -142,7 +142,6 @@ class Livestream:
             "QnAEnabled": True,
             "pollsEnabled": True,
             "userRole": "adminRole", 
-            "playerUIConf": player_ui_conf_id,
             "presentationConversionProfileId": conversion_profile_id,
             "referer": config.app_domain,
             "debuggingMode": False, 
