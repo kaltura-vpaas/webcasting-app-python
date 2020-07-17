@@ -10,7 +10,7 @@ The complete documentation can be found [here](https://github.com/kaltura-vpaas/
 - Install or import the Kaltura [Client Library](https://developer.kaltura.com/api-docs/Client_Libraries)
 - Run `pip install -r requirements.txt` from within the project directory to install all dependencies. 
 
-**You'll need to add credentials to the `config.py` file:**
+**Copy config.template.py onto config.py and set the below values**
 
 - **partner_id (int)**: this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)
 - **admin_secret (string)**: this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)

@@ -2,6 +2,7 @@ partner_id = 0000000
 admin_secret = "xxxxx"
 admin_email = "xxxxx"
 service_url = "https://www.kaltura.com/"
+conversionProfileId = 00000
 
 player_v2 = False
 uiconf_id = 00000000
