@@ -17,15 +17,14 @@ class Livestream:
 
         # CONVERSION PROFILES
 
-        ## Cloud transcode conversion profile
+        ## Default live (cloud transcode) conversion profile
         filter = KalturaConversionProfileFilter()
-        filter.nameEqual = "Cloud transcode"
+        filter.systemNameEqual = "Default_Live"
         pager = KalturaFilterPager()
         result = client.conversionProfile.list(filter, pager)
         cloud_transcode_conversion_profile_id = result.objects[0].id
 
         ## presentation conversion profile ID
-        filter.nameEqual = ""
         filter.systemNameEqual = "KMS54_NEW_DOC_CONV_IMAGE_WIDE"
         result = client.conversionProfile.list(filter, pager)
         presentation_conversion_profile_id = result.objects[0].id
