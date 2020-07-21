@@ -15,12 +15,20 @@ class Livestream:
 
         client = ks.client_for_admin(config.admin_email, "")
 
-        ## Cloud transcode conversion profile ID
+        # CONVERSION PROFILES
+
+        ## Cloud transcode conversion profile
         filter = KalturaConversionProfileFilter()
         filter.nameEqual = "Cloud transcode"
         pager = KalturaFilterPager()
         result = client.conversionProfile.list(filter, pager)
         cloud_transcode_conversion_profile_id = result.objects[0].id
+
+        ## presentation conversion profile ID
+        filter.nameEqual = ""
+        filter.systemNameEqual = "KMS54_NEW_DOC_CONV_IMAGE_WIDE"
+        result = client.conversionProfile.list(filter, pager)
+        presentation_conversion_profile_id = result.objects[0].id
 
         # CREATE LIVESTREAM ENTRY
 
@@ -112,13 +120,6 @@ class Livestream:
         privileges = "setrole:WEBCAST_PRODUCER_DEVICE_ROLE,sview:*,list:{},download:{}" \
             .format(live_stream_entry_id, live_stream_entry_id)
         kaltura_session = ks.get_ks(config.moderator_user, privileges, KalturaSessionType.USER)
-
-        ## presentation conversion profile ID
-        filter = KalturaConversionProfileFilter()
-        filter.systemNameEqual = "KMS54_NEW_DOC_CONV_IMAGE_WIDE"
-        pager = KalturaFilterPager()
-        result = client.conversionProfile.list(filter, pager)
-        presentation_conversion_profile_id = result.objects[0].id
 
         ## CREATE LAUNCH PARAMS DICT
 
