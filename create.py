@@ -110,7 +110,7 @@ class Livestream:
         ## kaltura session for launch
         privileges = "setrole:WEBCAST_PRODUCER_DEVICE_ROLE,sview:*,list:{},download:{}" \
             .format(live_stream_entry_id, live_stream_entry_id)
-        kaltura_session = ks.ks_for_user(config.moderator_user, privileges)
+        kaltura_session = ks.get_ks(config.moderator_user, privileges, KalturaSessionType.ADMIN)
 
         ## presentation conversion profile ID
         filter = KalturaConversionProfileFilter()

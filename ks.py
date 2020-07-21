@@ -35,14 +35,14 @@ def client_for_user(username, privileges):
 
     return  client 
 
-def ks_for_user(username, privileges):
+def get_ks(username, privileges, session_type):
     kaltura_config = KalturaConfiguration(config.partner_id)
     kaltura_config.serviceUrl = config.service_url
     client = KalturaClient(kaltura_config)
     ks = client.session.start(
         config.admin_secret,
         username,
-        KalturaSessionType.USER,
+        session_type,
         config.partner_id, 
         86400,
         privileges)

@@ -34,7 +34,7 @@ class View:
         privileges = "sview:{},restrictexplicitliveview:{},enableentitlement,appid:{},appdomain:{},sessionkey:{}" \
             .format(entry_id, entry_id, config.app_id, config.app_domain, config.viewer_user_id)
 
-        kaltura_session = ks.ks_for_user(config.viewer_user_id, privileges)
+        kaltura_session = ks.get_ks(config.viewer_user_id, privileges, KalturaSessionType.USER)
         
         data = {
             "ks": kaltura_session, 
@@ -52,7 +52,7 @@ class View:
         
         privileges = "setrole:WEBCAST_PRODUCER_DEVICE_ROLE,sview:*,list:{},download:{}" \
             .format(entry_id, entry_id)
-        kaltura_session = ks.ks_for_user(config.moderator_user, privileges)
+        kaltura_session = ks.get_ks(config.moderator_user, privileges, KalturaSessionType.USER)
 
         base_url =  "https://www.kaltura.com/apps/webcast/vlatest/index.html?"
 
