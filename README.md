@@ -16,11 +16,13 @@ The complete documentation can be found [here](https://github.com/kaltura-vpaas/
 - **admin_secret (string)**: this can be found in the [integration settings](https://kmc.kaltura.com/index.php/kmcng/login)
 - **admin_email (string)**: the email address of the admin, most likely the account owner, used for object creation
 - **service_url (string)**: Kaltura API endpoint ("https://www.kaltura.com/" for SaaS)
-- **player_v2 (boolean)**: determines whether the application will use player v2 for playback - in the scenario that presentation slides are required in the live stream
-- **uiconf_id (int)**: the ID of the v7 player to be used for playback. Can be found in the KMC [**TV STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v3) (can be left blank if `player_v2` is set to `True`)
-- **uiconf_idv2 (int)**: the ID of the v2 player to be used for playback. Can be found in the KMC [**Universal STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v2). (Can be left blank if `player_v2` is set to `False`)
+- **use_v2_player (boolean)**: determines whether the application will use the v2 player for playback - in the scenario that presentation slides are required in the live stream
+- **uiconf_id (int)**: the ID of the v7 player to be used for playback. Can be found in the KMC [**TV STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v3) (can be left blank if `use_v2_player` is set to `True`)
+- **uiconf_idv2 (int)**: the ID of the v2 player to be used for playback. Can be found in the KMC [**Universal STUDIO**](https://kmc.kaltura.com/index.php/kmcng/studio/v2). (Can be left blank if `use_v2_player` is set to `False`)
+- **win_uiconf_id (int)**: the ID of the UIConf if the webcast application is launched on a Windows machine.
+- **mac_uiconf_id (int)**: the ID of the UIConf if the webcast application is launched on a Mac machine.
 
-- **user_id (string)** = the identifying string of the end user who will be watching the stream. This value will most likely will come from a different part of the application 
+- **viewer_user_id (string)** = the identifying string of the end user who will be watching the stream. This value will most likely will come from a different part of the application
 - **moderator_user (string)** = the identifying string of the moderator who will be managing the Q&A flow
 
 - **app_name (string)** = the name that appears on the Webcasting Studio App

@@ -6,13 +6,21 @@ import ks
 import json
 import config 
 from time import time 
+from sys import platform
 
 class Livestream:
 
     @staticmethod
     def create():
 
-        client  = ks.client_for_admin(config.admin_email, "")
+        client = ks.client_for_admin(config.admin_email, "")
+
+        ## Cloud transcode conversion profile ID
+        filter = KalturaConversionProfileFilter()
+        filter.nameEqual = "Cloud transcode"
+        pager = KalturaFilterPager()
+        result = client.conversionProfile.list(filter, pager)
+        cloud_transcode_conversion_profile_id = result.objects[0].id
 
         # CREATE LIVESTREAM ENTRY
 
@@ -27,17 +35,15 @@ class Livestream:
         live_stream_entry.pushPublishEnabled = KalturaLivePublishStatus.DISABLED
         live_stream_entry.explicitLive = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordStatus = KalturaRecordStatus.PER_SESSION
-        live_stream_entry.conversionProfileId = config.conversionProfileId
+        live_stream_entry.conversionProfileId = cloud_transcode_conversion_profile_id
         live_stream_entry.recordingOptions = KalturaLiveEntryRecordingOptions()
         live_stream_entry.recordingOptions.shouldCopyEntitlement = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldMakeHidden = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldAutoArchive = KalturaNullableBoolean.TRUE_VALUE
 
-        source_type = KalturaSourceType.LIVE_STREAM
+        result = client.liveStream.add(live_stream_entry, KalturaSourceType.LIVE_STREAM)
 
-        result = client.liveStream.add(live_stream_entry, source_type)
-
-        live_stream_entry = result.id
+        live_stream_entry_id = result.id
 
         # LIVESTREAM METADATA 
 
@@ -57,7 +63,7 @@ class Livestream:
 
         object_type = KalturaMetadataObjectType.ENTRY
 
-        result = client.metadata.metadata.add(kms_metadata_profile_id, object_type, live_stream_entry, xml_data)
+        result = client.metadata.metadata.add(kms_metadata_profile_id, object_type, live_stream_entry_id, xml_data)
 
         kms_metadata_record_id = result.id
 
@@ -74,15 +80,15 @@ class Livestream:
         webcast_end_date = datetime.now()+timedelta(minutes=10)
 
         xml_data = '<?xml version="1.0"?><metadata><StartTime>{}</StartTime>' \
-        '<EndTime>{}</EndTime><Timezone>Asia/Jerusalem</Timezone>' \
+        '<EndTime>{}</EndTime><Timezone>America/New_York</Timezone>' \
         '<Presenter><PresenterId>8723792</PresenterId><PresenterName>{}</PresenterName>' \
         '<PresenterTitle>CEO and Chairman</PresenterTitle><PresenterBio>Awesome biography here</PresenterBio>' \
         '<PresenterLink>https://www.linkedin.com/in/john.doe</PresenterLink>' \
-        '<PresenterImage>https://speakerheadshot.com/image.png</PresenterImage></Presenter></metadata>' \
+        '</Presenter></metadata>' \
         .format(int(webcast_start_date.strftime("%s")), int(webcast_end_date.strftime("%s")), presenter_name)
 
         object_type = KalturaMetadataObjectType.ENTRY
-        result = client.metadata.metadata.add(events_metadata_profile_id, object_type, live_stream_entry, xml_data)
+        result = client.metadata.metadata.add(events_metadata_profile_id, object_type, live_stream_entry_id, xml_data)
 
         event_metadata_record_id = result.id
 
@@ -101,36 +107,25 @@ class Livestream:
 
         # PREPARE LAUNCH PARAMS 
 
-        ## kaltura session for launch 
-
+        ## kaltura session for launch
         privileges = "setrole:WEBCAST_PRODUCER_DEVICE_ROLE,sview:*,list:{},download:{}" \
-            .format(live_stream_entry, live_stream_entry)
-
+            .format(live_stream_entry_id, live_stream_entry_id)
         kaltura_session = ks.ks_for_user(config.moderator_user, privileges)
 
-        ## conversion profile ID
-
+        ## presentation conversion profile ID
         filter = KalturaConversionProfileFilter()
+        filter.systemNameEqual = "KMS54_NEW_DOC_CONV_IMAGE_WIDE"
         pager = KalturaFilterPager()
         result = client.conversionProfile.list(filter, pager)
-
-        conversion_profile_id = result.objects[0].id
-
-        ## player ui conf ID 
-
-        filter = KalturaUiConfFilter()
-        filter.nameLike = "MediaSpace Webcast Player"
-        pager = KalturaFilterPager()
-
-        result = client.uiConf.list(filter, pager)
-        player_ui_conf_id = result.objects[0].id
+        presentation_conversion_profile_id = result.objects[0].id
 
         ## CREATE LAUNCH PARAMS DICT
 
         launch_params = {
             "ks": kaltura_session,
-            "ks_expiry": (datetime.now()+timedelta(days=1)).strftime("%Y-%d-%d%Z%H:%M:%S%z"),
-            "MediaEntryId": live_stream_entry,
+            "ks_expiry": (datetime.now()+timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%S%z"),
+            "MediaEntryId": live_stream_entry_id,
+            "uiConfID": config.mac_uiconf_id if platform == "darwin" else config.win_uiconf_id,
             "serverAddress": config.service_url,
             "eventsMetadataProfileId": events_metadata_profile_id,
             "kwebcastMetadataProfileId": kms_metadata_profile_id,
@@ -141,8 +136,9 @@ class Livestream:
             "userId": config.moderator_user,
             "QnAEnabled": True,
             "pollsEnabled": True,
-            "userRole": "adminRole", 
-            "presentationConversionProfileId": conversion_profile_id,
+            "userRole": "adminRole",
+            "playerUIConf": config.uiconf_idv2 if config.use_v2_player else config.uiconf_id,
+            "presentationConversionProfileId": presentation_conversion_profile_id,
             "referer": config.app_domain,
             "debuggingMode": False, 
             "verifySSL": True,
@@ -152,7 +148,7 @@ class Livestream:
         }
 
         data = {
-            "entry_id": live_stream_entry,
+            "entry_id": live_stream_entry_id,
             "mac_download": mac_download_url,
             "windows_download": win_download_url,
             "launch_params": launch_params

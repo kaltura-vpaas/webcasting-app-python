@@ -18,7 +18,7 @@ def create_stream():
 
 @app.route("/view/<entry_id>", methods=['get'])
 def view_stream(entry_id): 
-    if (config.player_v2):
+    if (config.use_v2_player):
         data = View.playback(entry_id, config.uiconf_idv2)
         return render_template("view-v2.html", **data)
     else: 

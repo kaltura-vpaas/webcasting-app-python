@@ -32,15 +32,15 @@ class View:
                     entry_id = result.objects[0].id
 
         privileges = "sview:{},restrictexplicitliveview:{},enableentitlement,appid:{},appdomain:{},sessionkey:{}" \
-            .format(entry_id, entry_id, config.app_id, config.app_domain, config.user_id)
+            .format(entry_id, entry_id, config.app_id, config.app_domain, config.viewer_user_id)
 
-        kaltura_session = ks.ks_for_user(config.user_id, privileges)
+        kaltura_session = ks.ks_for_user(config.viewer_user_id, privileges)
         
         data = {
             "ks": kaltura_session, 
             "partner_id": config.partner_id,
             "uiconf_id": uiconf_id,
-            "user_id": config.user_id, 
+            "user_id": config.viewer_user_id,
             "entry_id": entry_id,
             "app_name": config.app_name, #for player v2
         }
