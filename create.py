@@ -40,6 +40,7 @@ class Livestream:
         live_stream_entry.recordingOptions.shouldCopyEntitlement = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldMakeHidden = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldAutoArchive = KalturaNullableBoolean.TRUE_VALUE
+        live_stream_entry.entitledUsersEdit = config.moderator_user
 
         result = client.liveStream.add(live_stream_entry, KalturaSourceType.LIVE_STREAM)
 
@@ -110,7 +111,7 @@ class Livestream:
         ## kaltura session for launch
         privileges = "setrole:WEBCAST_PRODUCER_DEVICE_ROLE,sview:*,list:{},download:{}" \
             .format(live_stream_entry_id, live_stream_entry_id)
-        kaltura_session = ks.get_ks(config.moderator_user, privileges, KalturaSessionType.ADMIN)
+        kaltura_session = ks.get_ks(config.moderator_user, privileges, KalturaSessionType.USER)
 
         ## presentation conversion profile ID
         filter = KalturaConversionProfileFilter()
