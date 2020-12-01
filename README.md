@@ -23,6 +23,8 @@ The complete documentation can be found [here](https://github.com/kaltura-vpaas/
 - **mac_uiconf_id (int)**: the ID of the UIConf if the webcast application is launched on a Mac machine.
 
 - **viewer_user_id (string)** = the identifying string of the end user who will be watching the stream. This value will most likely will come from a different part of the application
+- **broadcaster_user (string)** = the identifying string of the broadcaster of the stream
+- **broadcaster_display_name (string)** = the name that is displayed for the broadcaster in Webcast Studio
 - **moderator_user (string)** = the identifying string of the moderator who will be managing the Q&A flow
 
 - **app_name (string)** = the name that appears on the Webcasting Studio App

@@ -11,6 +11,8 @@ win_uiconf_id = 00000000
 mac_uiconf_id = 00000000
 
 viewer_user_id = "xxxxx"
+broadcaster_user = "xxxxx"
+broadcaster_display_name = "xxxxx"
 moderator_user = "xxxxx"
 
 app_name = "Webcasting Application"

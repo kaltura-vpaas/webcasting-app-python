@@ -1,5 +1,6 @@
 from KalturaClient import *
 from KalturaClient.Plugins.Core import *
+from KalturaClient.Plugins.Schedule import *
 import ks
 import config
 from urllib.parse import urlencode

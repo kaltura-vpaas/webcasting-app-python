@@ -38,7 +38,7 @@ class Livestream:
         live_stream_entry.dvrStatus = KalturaDVRStatus.ENABLED
         live_stream_entry.dvrWindow = 60
         live_stream_entry.sourceType = KalturaSourceType.LIVE_STREAM
-        live_stream_entry.adminTags = "vpaas-webcast"
+        live_stream_entry.adminTags = "kms-webcast-event,vpaas-webcast"
         live_stream_entry.pushPublishEnabled = KalturaLivePublishStatus.DISABLED
         live_stream_entry.explicitLive = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordStatus = KalturaRecordStatus.PER_SESSION
@@ -47,7 +47,7 @@ class Livestream:
         live_stream_entry.recordingOptions.shouldCopyEntitlement = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldMakeHidden = KalturaNullableBoolean.TRUE_VALUE
         live_stream_entry.recordingOptions.shouldAutoArchive = KalturaNullableBoolean.TRUE_VALUE
-        live_stream_entry.entitledUsersEdit = config.moderator_user
+        live_stream_entry.entitledUsersEdit = config.moderator_user + "," + config.broadcaster_user
 
         result = client.liveStream.add(live_stream_entry, KalturaSourceType.LIVE_STREAM)
 
@@ -118,7 +118,7 @@ class Livestream:
         ## kaltura session for launch
         privileges = "setrole:WEBCAST_PRODUCER_DEVICE_ROLE,sview:*,list:{},download:{}" \
             .format(live_stream_entry_id, live_stream_entry_id)
-        kaltura_session = ks.get_ks(config.moderator_user, privileges, KalturaSessionType.USER)
+        kaltura_session = ks.get_ks(config.broadcaster_user, privileges, KalturaSessionType.USER)
 
         ## CREATE LAUNCH PARAMS DICT
 
@@ -134,7 +134,7 @@ class Livestream:
             "logoUrl": "https://picsum.photos/200",
             "fromDate": webcast_start_date,
             "toDate": webcast_end_date,
-            "userId": config.moderator_user,
+            "userId": config.broadcaster_display_name,
             "QnAEnabled": True,
             "pollsEnabled": True,
             "userRole": "adminRole",
